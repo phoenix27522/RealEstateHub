@@ -12,14 +12,20 @@ class RealEstateHub_db:
 
     def __init__(self):
         """Instantiate a RealEstateHub object"""
-        user = getenv('admin')
-        password = getenv('nk0701540135')# find if there is way not to hard code the paaword to db
-        host = getenv('localhost') # change it to DNS(only for testing and deploying)
-        db = getenv('db_RealEstateHub')
-        env = getenv('db_env')
+        user = getenv('DB_USER')
+        password = getenv('DB_PASSWORD')
+        host = getenv('DB_HOST')
+        db = getenv('DB_NAME')
+        env = getenv('DB_ENV')
 
-        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.format(user, password, host, db))
+        if user is None or password is None or host is None or db is None:
+            raise ValueError("Database configuration environment variables are not set.")
+
+        self.__engine = create_engine(f'mysql+mysqldb://{user}:{password}@{host}/{db}')
         if env == "test":
             Base.metadata.drop_all(self.__engine)
+
+        Session = sessionmaker(bind=self.__engine)
+        self.session = Session()
 
     

@@ -2,52 +2,46 @@
 """ creating base model for all to inherit"""
 
 from datetime import datetime
-import backend
-from backend.storage.REH_db import RealEstateHub_db
-import sqlalchemy
+from sqlalchemy.orm import declarative_base
+from sqlalchemy import Column, String, DateTime
 import uuid
-from sqlalchemy import column, String, DateTime
-from sqlalchemy.ext.declarative import declarative_base
-
-time = "%Y-%m-%dT%H:%M:%S.%f"
 
 Base = declarative_base()
 
+class BaseModel:
+    """Base class for all models"""
+    __abstract__ = True
 
-class BaseModel(Base):
-    """class that all the model will inherit from"""
-
-    id = column(String(60), primary_key = True)
-    created_at = column(DateTime, default=datetime.utcnow)
-    updated_at = column(DateTime, default=datetime.utcnow)
+    id = Column(String(36), primary_key=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     def __init__(self, *args, **kwargs):
-        """Initialization of the base model"""
-        if kwargs:
-            for key, value in kwargs.items():
-                if key != "__class__":
-                    setattr(self, key, value)
-            if kwargs.get("created_at", None) and type(self.created_at) is str:
-                self.created_at = datetime.strptime(kwargs["created_at"], time)
-            else:
-                self.created_at = datetime.utcnow()
-            if kwargs.get("updated_at", None) and type(self.updated_at) is str:
-                self.updated_at = datetime.strptime(kwargs["updated_at"], time)
-            else:
-                self.updated_at = datetime.utcnow()
-            if kwargs.get("id", None) is None:
-                self.id = str(uuid.uuid4())
-        else:
-            self.created_at = datetime.utcnow
-            self.updated_at = datetime.utcnow
-            self.id = str(uuid.uuid4)
+        super().__init__(*args, **kwargs)
+        if not self.id:
+            self.id = str(uuid.uuid4())
+        if 'created_at' in kwargs:
+            self.created_at = self._parse_datetime(kwargs['created_at'])
+        if 'updated_at' in kwargs:
+            self.updated_at = self._parse_datetime(kwargs['updated_at'])
 
-    def __str__(self):
-        """string representation of the basemodel"""
-        return "[{:s}] (:s) {}".format(self.__class__.__name__, self.id, self.__dict__)
-    
-    def save(self):
-        """ updates or save"""
-        self.updated_at = datetime.utcnow
-        RealEstateHub_db.new(self)
-        RealEstateHub_db.save()
+    @staticmethod
+    def _parse_datetime(value):
+        """Parse datetime from string representation"""
+        if isinstance(value, str):
+            try:
+                return datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
+            except ValueError:
+                # Handle invalid datetime format gracefully
+                return None
+        return None
+
+    def __repr__(self):
+        return f"<{self.__class__.__name__}(id={self.id})>"
+
+    def save(self, session):
+        """Save the instance to the database"""
+        self.updated_at = datetime.utcnow()
+        session.add(self)
+        session.commit()
+
