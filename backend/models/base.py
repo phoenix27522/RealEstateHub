@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """ creating base model for all to inherit"""
-
+import backend
 from datetime import datetime
 from sqlalchemy.orm import declarative_base
 from sqlalchemy import Column, String, DateTime
@@ -45,3 +45,31 @@ class BaseModel:
         session.add(self)
         session.commit()
 
+    def to_dict(self, save_fs=None, time="%Y-%m-%d %H:%M:%S"):
+        """returns a dictionary containing all keys/values of the instance"""
+        new_dict = self.__dict__.copy()  # Copy instance dictionary
+
+        # Convert datetime attributes to strings
+        if "created_at" in new_dict:
+            new_dict["created_at"] = new_dict["created_at"].strftime(time)
+        if "updated_at" in new_dict:
+            new_dict["updated_at"] = new_dict["updated_at"].strftime(time)
+
+        # Add class name to the dictionary
+        new_dict["__class__"] = self.__class__.__name__
+
+        # Remove SQLAlchemy state attribute if present
+        if "_sa_instance_state" in new_dict:
+            del new_dict["_sa_instance_state"]
+
+        # Remove password if save_fs is not provided
+        if save_fs is None and "password" in new_dict:
+            del new_dict["password"]
+
+        return new_dict
+    
+    def delete(self, session):
+        """delet current instance"""
+        session.delete(self)
+        session.commit()
+ 
