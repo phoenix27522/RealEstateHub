@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 from backend.models.base import BaseModel, Base
 from sqlalchemy import Column, String, Integer, Float, ForeignKey
+from sqlalchemy.orm import relationship
 
 class Properties(BaseModel, Base):
     """repersentation of properties"""
@@ -13,6 +14,8 @@ class Properties(BaseModel, Base):
     price = Column(Integer, nullable=False, default=0)
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
+    reviews = relationship("Review", backref="properties", cascade="all, delete, delete-orphan")
+    city_id = Column(String(128), ForeignKey("cities.id"), nullable=False)
 
     def __init__(self, *args, **kwargs):
         """initializes Place"""
