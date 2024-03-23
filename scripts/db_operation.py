@@ -1,63 +1,73 @@
-#!/usr/bin/python3
-from backend.storage.REH_db import RealEstateHub_db  # Import your database class
-from backend.models.user import User  # Import the User model
-from backend.models.properties import Properties  # Import the Properties model
-from backend.models.city import City  # Import the City model
-from backend.models.state import State  # Import the State model
-from backend.models.review import Review  # Import the Review model
-from backend.models.amenity import Amenity  # Import the Amenity model
+from models.storage.REH_db import RealEstateHub_db
+from models.user import User
+from models.state import State
+from models.properties import Property
+from models.review import Review
+from models.amenity import Amenity
 
 # Instantiate the database class
 db = RealEstateHub_db()
 
-# Create all tables (if they don't exist)
-db.create_all()
-
-# Get a session from the database
-session = db.get_session()
+# Create a session
+session = db.reload()
 
 try:
     # Create a user
-    user = User(email="adiam@example.com", username="fruth_user", password="123456789")
-    session.add(user)
+    user = User(email="dorty@example.com", username="amanda_user", password="15668489")
+    db.new(user)
+    print("User data before insertion:", user.to_dict())
+
+    # Create a state if it doesn't exist
+    state_id = "Nf"
+    state = db.get(State, state_id)
+    if state is None:
+        state = State(name="New York", id=state_id)
+        db.new(state)
+        print("State data before insertion:", state.to_dict())
 
     # Create a property
-    property_1 = Properties(
-        user_id=user.id,
-        name="Sample Property",
-        description="This is a sample property",
-        number_rooms=3,
-        number_bathrooms=2,
-        price=200000,
-        latitude=123.456,
-        longitude=456.789
-    )
-    session.add(property_1)
-
-    # Create a city
-    city = City(name="New York", state_id="NY")
-    session.add(city)
-
-    # Create a state
-    state = State(name="New York")
-    session.add(state)
+    property_args = {
+        'city_id': 'NYC',
+        'user_id': user.id,
+        'name': 'Luxury Apartment',
+        'description': 'Beautiful apartment with stunning views',
+        'number_rooms': 3,
+        'number_bathrooms': 2,
+        'price': 200,
+        'latitude': 40.7128,
+        'longitude': -74.0060
+    }
+    property_obj = Property(**property_args)
+    db.new(property_obj)
+    print("Property data before insertion:", property_obj.to_dict())
 
     # Create a review
-    review = Review(user_id=user.id, properties_id=property_1.id, text="This property is great!")
-    session.add(review)
+    review_args = {
+        'property_id': property_obj.id,  # Set the property_id
+        'user_id': user.id,
+        'text': 'This property is amazing!'
+    }
+    review_obj = Review(**review_args)
+    db.new(review_obj)
+    print("Review data before insertion:", review_obj.to_dict())
+
 
     # Create an amenity
-    amenity = Amenity(name="Swimming Pool")
-    session.add(amenity)
+    amenity_args = {
+        'name': 'Swimming Pool'
+    }
+    amenity_obj = Amenity(**amenity_args)
+    db.new(amenity_obj)
+    print("Amenity data before insertion:", amenity_obj.to_dict())
 
     # Commit the changes to the database
-    session.commit()
+    db.save()
 
 except Exception as e:
     print(f"An error occurred: {e}")
-    session.rollback()
+    if session:
+        session.rollback()
 
 finally:
     # Close the session
-    db.close_session()
-
+    db.close()

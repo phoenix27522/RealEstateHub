@@ -1,15 +1,18 @@
 #!/usr/bin/python3
 
-from backend.models.base import BaseModel, Base
+from models.base import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship
 
 class City(BaseModel, Base):
     """Representation of city """
     __tablename__ = 'cities'
+    __table_args__ = {'extend_existing': True} 
+    state_id = Column(String(60), ForeignKey('states.id'), nullable=False)
     name = Column(String(128), nullable=False)
-    state_id = Column(String(128), ForeignKey('states.id'), nullable=False)
-    places = relationship("Properties", backref="cities", cascade="all, delete, delete-orphan")
+    property = relationship("Property",
+                            backref="cities",
+                            cascade="all, delete, delete-orphan")
 
     def __init__(self, *args, **kwargs):
         """initializes city"""
