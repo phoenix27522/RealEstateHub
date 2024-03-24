@@ -1,6 +1,8 @@
 from sqlalchemy import create_engine
 from os import getenv
 from sqlalchemy.orm import scoped_session, sessionmaker
+from sqlalchemy.orm import Session
+
 
 from models.base import Base
 from models.amenity import Amenity
@@ -36,14 +38,11 @@ class RealEstateHub_db:
 
     def all(self, cls=None):
         """Query on the current database session"""
-        new_dict = {}
-        for clss in classes:
-            if cls is None or cls is classes[clss] or cls is clss:
-                objs = self.__session.query(classes[clss]).all()
-                for obj in objs:
-                    key = obj.__class__.__name__ + '.' + obj.id
-                    new_dict[key] = obj
-        return new_dict
+        if cls:
+            objs = self.__session.query(cls).all()
+        else:
+            objs = [obj for cls in classes.values() for obj in self.__session.query(cls).all()]
+        return {f"{obj.__class__.__name__}.{obj.id}": obj for obj in objs}
 
     def new(self, obj):
         """Add the object to the current database session"""
@@ -60,13 +59,23 @@ class RealEstateHub_db:
 
     def reload(self):
         """Reloads data from the database"""
+        if self.__session:
+            self.close()  # Close existing session
         Base.metadata.create_all(self.__engine)
         sess_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
-        self.__session = scoped_session(sess_factory)()
+        session = scoped_session(sess_factory)
+        self.__session = session()
+
 
     def close(self):
-        """Close the database session."""
-        self.__session.close()
+        try:
+            if self.__session:
+                self.__session.close()
+                self.__session = None  # Reset session to None after closing
+            else:
+                print("Session is already closed or not initialized.")
+        except Exception as e:
+            print(f"An error occurred while closing the session: {str(e)}")
 
     def get(self, cls, id):
         """
@@ -76,9 +85,4 @@ class RealEstateHub_db:
         if cls not in classes.values():
             return None
 
-        all_cls = self.all(cls)
-        for value in all_cls.values():
-            if value.id == id:
-                return value
-
-        return None
+        return self.__session.query(cls).filter_by(id=id).first()

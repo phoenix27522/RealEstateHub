@@ -13,27 +13,27 @@ session = db.reload()
 
 try:
     # Create a user
-    user = User(email="dorty@example.com", username="amanda_user", password="15668489")
+    user = User(email="titi@example.com", username="titi_user", password="13467982")
     db.new(user)
     print("User data before insertion:", user.to_dict())
 
     # Create a state if it doesn't exist
-    state_id = "Nf"
+    state_id = "MT"
     state = db.get(State, state_id)
     if state is None:
-        state = State(name="New York", id=state_id)
+        state = State(name="Monterial", id=state_id)
         db.new(state)
         print("State data before insertion:", state.to_dict())
 
     # Create a property
     property_args = {
-        'city_id': 'NYC',
+        'city_id': 'ASM',
         'user_id': user.id,
-        'name': 'Luxury Apartment',
+        'name': 'Villa',
         'description': 'Beautiful apartment with stunning views',
-        'number_rooms': 3,
+        'number_rooms': 4,
         'number_bathrooms': 2,
-        'price': 200,
+        'price': 500,
         'latitude': 40.7128,
         'longitude': -74.0060
     }
