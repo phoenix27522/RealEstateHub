@@ -1,9 +1,7 @@
+import logging
 from sqlalchemy import create_engine
 from os import getenv
 from sqlalchemy.orm import scoped_session, sessionmaker
-from sqlalchemy.orm import Session
-
-
 from models.base import Base
 from models.amenity import Amenity
 from models.city import City
@@ -31,10 +29,14 @@ class RealEstateHub_db:
         if None in {user, password, host, name}:
             raise ValueError("Database environment variables not properly set")
 
+        logging.info(f"Connecting to database {name} on {host}...")
         self.__engine = create_engine(f'mysql+mysqldb://{user}:{password}@{host}/{name}')
 
         if self.env == "test":
+            logging.info("Dropping existing tables for test environment...")
             Base.metadata.drop_all(self.__engine)
+
+        self.reload()
 
     def all(self, cls=None):
         """Query on the current database session"""
@@ -58,24 +60,36 @@ class RealEstateHub_db:
             self.__session.delete(obj)
 
     def reload(self):
-        """Reloads data from the database"""
-        if self.__session:
-            self.close()  # Close existing session
+        logging.info("Reloading session...")
+        # Close existing session if it exists
+        self.close()
+
+        # Create all tables
         Base.metadata.create_all(self.__engine)
+
+        # Create a new session
         sess_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
-        session = scoped_session(sess_factory)
-        self.__session = session()
+        self.__session = scoped_session(sess_factory)
+        self.__session()
+
+        logging.info("Session reloaded successfully.")
+
 
 
     def close(self):
         try:
             if self.__session:
                 self.__session.close()
-                self.__session = None  # Reset session to None after closing
+                logging.info("Session closed successfully.")
             else:
-                print("Session is already closed or not initialized.")
+                logging.warning("Session is already closed or not initialized.")
         except Exception as e:
-            print(f"An error occurred while closing the session: {str(e)}")
+            logging.error(f"An error occurred while closing the session: {str(e)}")
+
+    
+    def get_session(self):
+        """Returns the current session."""
+        return self.__session
 
     def get(self, cls, id):
         """
@@ -86,3 +100,6 @@ class RealEstateHub_db:
             return None
 
         return self.__session.query(cls).filter_by(id=id).first()
+
+logging.basicConfig(level=logging.INFO)
+db = RealEstateHub_db()

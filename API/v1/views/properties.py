@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """ objects that handle all default RestFul API actions for propertys """
+import logging
 from models.state import State
 from models.city import City
 from models.properties import Property
@@ -10,6 +11,7 @@ from API.v1.views import app_views
 from flask import abort, jsonify, make_response, request
 from flasgger.utils import swag_from
 
+logging.basicConfig(level=logging.DEBUG)
 
 @app_views.route('/cities/<city_id>/propertys', methods=['GET'],
                  strict_slashes=False)
@@ -124,11 +126,14 @@ def propertys_search():
     Retrieves all Property objects depending of the JSON in the body
     of the request
     """
+    logging.debug("Received request to search for properties")
 
     if request.get_json() is None:
         abort(400, description="Not a JSON")
 
     data = request.get_json()
+
+    logging.debug("Received JSON data: %s", data)
 
     if data and len(data):
         states = data.get('states', None)

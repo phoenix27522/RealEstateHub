@@ -1,4 +1,4 @@
-.places {
+.Property {
     column-count: 2;
     columns: 30em;
     justify-content: center;
@@ -8,20 +8,20 @@
 }
 @media only screen and (max-width: 920px)
 {
-    .places {
+    .Property {
 	display: flex;
 	flex-wrap: wrap;
     }
 }
 
-.placesh1 h1 {
+.Propertyh1 h1 {
     width: 100%;
     margin-right: 400px;
     text-align: left;
     font-size: 35px;
 }
 
-.places article {
+.Property article {
     -webkit-column-break-inside: avoid;
     page-break-inside: avoid;
     display: inline-block;
@@ -32,7 +32,7 @@
     border: 1px solid #FF5A5F;
     border-radius: 4px;
 }
-.places h2 {
+.Property h2 {
     font-size: 30px;
     text-align: center;
     margin-top: 0;
