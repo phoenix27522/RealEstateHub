@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Estate Web App</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>RealEstateHub</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Properties</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="search-section">
+            <h2>Search Properties</h2>
+            <form id="search-form">
+                <div class="form-group">
+                    <label for="amenity">Amenity:</label>
+                    <select id="amenity" name="amenity">
+                        <option value="">Select Amenity</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="state">State:</label>
+                    <select id="state" name="state">
+                        <option value="">Select State</option>
+                    </select>
+                </div>
+                <button type="button" id="search-button">Search</button>
+            </form>
+        </section>
+
+        <section id="properties-section">
+            <h2>Search Results</h2>
+            <div id="properties-list"></div>
+        </section>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="{{ url_for('static', filename='scripts/scripts.js') }}"></script>
+</body>
+</html>
