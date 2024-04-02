@@ -479,3 +479,184 @@ body {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+.filters {
+  position: fixed;
+  top: 50px;
+  left: 20px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  max-width: 300px;
+}
+
+.filters button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.filters ul li {
+  list-style: none;
+}
+
+.filters input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+/* Adjusted popover styling for consistency */
+.popover {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  z-index: 1000;
+  max-width: 200px;
+}
+
+.popover ul {
+  margin: 0;
+  padding: 0;
+}
+
+.popover ul li {
+  list-style: none;
+  margin-bottom: 5px;
+}
+
+.popover h2,
+.popover h3,
+.popover h4 {
+  margin: 0;
+}
+
+/* Styling for the locations section */
+.locations {
+  margin-right: 20px;
+}
+
+.locations h3 {
+  margin: 0;
+}
+
+.locations .popover {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  max-width: 200px;
+}
+
+.locations .popover ul {
+  margin: 0;
+  padding: 0;
+}
+
+.locations .popover ul li {
+  list-style: none;
+  margin-bottom: 5px;
+}
+
+.locations .popover h2,
+.locations .popover h3,
+.locations .popover h4 {
+  margin: 0;
+}
+
+/* Styling for the amenities section */
+.amenities {
+  margin-left: 20px;
+}
+
+.amenities h3 {
+  margin: 0;
+}
+
+.amenities .popover {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  max-width: 200px;
+}
+
+.amenities .popover ul {
+  margin: 0;
+  padding: 0;
+}
+
+.amenities .popover ul li {
+  list-style: none;
+  margin-bottom: 5px;
+}
+
+.amenities .popover h2,
+.amenities .popover h3,
+.amenities .popover h4 {
+  margin: 0;
+}
+#search-section {
+  position: fixed;
+  top: 150px; /* Adjust the top position as needed */
+  left: 25px; /* Adjust the left position as needed */
+  width: 150px; /* Adjust the width as needed */
+  height: 100px; /* Set the height equal to the width to make it a square */
+  background-color: transparent; /* Optional: Add background color */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transition: all 0.3s ease; /* Add transition for smooth effect */
+  z-index: 999; /* Ensure it appears above other content */
+}
+
+#search-section:hover {
+  background-color: #ccc; /* Change background color on hover */
+  transform: scale(1.1); /* Scale up on hover */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+}
+#search-section .form-group {
+  width: auto;
+  margin-bottom: 10px; /* Adjust margin between form groups */
+}
+
+#search-section label {
+  font-weight: bold; /* Make labels bold */
+  margin-bottom: 5px; /* Add some space below labels */
+}
+
+#search-section select,
+#search-section input[type="text"] {
+  width: 100%; /* Adjust the width of inputs and selects */
+  padding: 8px; /* Add padding for inputs and selects */
+  border: 1px solid #ccc; /* Add border */
+  border-radius: 5px; /* Add border radius */
+  box-sizing: border-box; /* Ensure padding and border are included in width */
+}
+
+#search-section button {
+  width: 80%; /* Adjust button width */
+  padding: 10px; /* Add padding for the button */
+  background-color: #007bff; /* Set button background color */
+  color: #fff; /* Set button text color */
+  border: none; /* Remove button border */
+  border-radius: 5px; /* Add border radius */
+  cursor: pointer; /* Change cursor on hover */
+  transition: background-color 0.3s ease; /* Add transition effect */
+}
+
+#search-section button:hover {
+  background-color: #0056b3; /* Change button background color on hover */
+}

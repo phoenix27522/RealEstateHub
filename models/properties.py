@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-from sqlalchemy import Column, String, Integer, Float, ForeignKey, Table
+from sqlalchemy import Column, LargeBinary, String, Integer, Float, ForeignKey, Table
 from sqlalchemy.orm import relationship
 from models.base import BaseModel, Base  # Assuming BaseModel and Base are defined in models.base module
 
@@ -15,7 +15,7 @@ class Property(BaseModel, Base):
     """Representation of a property"""
     __tablename__ = "properties"
     __table_args__ = {'extend_existing': True}
-
+   
     city_id = Column(String(60), ForeignKey('cities.id'), nullable=False)
     user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
     name = Column(String(128), nullable=False)
@@ -25,6 +25,7 @@ class Property(BaseModel, Base):
     price = Column(Integer, nullable=False, default=0)
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
+    image= Column(LargeBinary, nullable=True)
 
     reviews = relationship("Review", backref="property", cascade="all, delete, delete-orphan")
     amenities = relationship("Amenity", secondary=properties_amenity_table, viewonly=False)
