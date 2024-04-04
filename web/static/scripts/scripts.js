@@ -59,10 +59,14 @@ document.addEventListener('DOMContentLoaded', function() {
               const swiperSlide = document.createElement('div');
               swiperSlide.classList.add('swiper-slide');
               swiperSlide.innerHTML = `
-                  <div class="property__card">
-                      <h4>${property.name}</h4>
-                      <p>Amenity: ${property.amenity}, State: ${property.state}</p>
-                  </div>
+              <div class="property__card">
+                <h4>${property.name}</h4>
+                <p>
+                  Amenity: ${property.amenity},
+                  State: ${property.state}
+                </p>
+                <img src="${property.image_path}" alt="Property Image">
+              </div>
               `;
               swiper.appendSlide(swiperSlide);
           });

@@ -9,7 +9,7 @@ from flask import abort, jsonify, make_response, request
 from flasgger.utils import swag_from
 
 
-@app_views.route('/properties/<place_id>/reviews', methods=['GET'],
+@app_views.route('/propertys/<place_id>/reviews', methods=['GET'],
                  strict_slashes=False)
 @swag_from('documentation/reviews/get_reviews.yml', methods=['GET'])
 def get_reviews(place_id):
@@ -58,7 +58,7 @@ def delete_review(review_id):
     return make_response(jsonify({}), 200)
 
 
-@app_views.route('/properties/<place_id>/reviews', methods=['POST'],
+@app_views.route('/propertys/<place_id>/reviews', methods=['POST'],
                  strict_slashes=False)
 @swag_from('documentation/reviews/post_reviews.yml', methods=['POST'])
 def post_review(place_id):

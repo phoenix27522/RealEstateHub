@@ -9,7 +9,7 @@ from hashlib import md5
 class User(BaseModel, Base):
     __tablename__ = 'users'
     __table_args__ = {'extend_existing': True} 
-    email = Column(String(128), nullable=False)
+    email = Column(String(128), nullable=False, unique=True)
     password = Column(String(128), nullable=False)
     username = Column(String(128), nullable=True)
     properties = relationship("Property", backref="user")

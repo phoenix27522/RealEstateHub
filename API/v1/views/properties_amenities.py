@@ -9,7 +9,7 @@ from flask import abort, jsonify, make_response, request
 from flasgger.utils import swag_from
 
 
-@app_views.route('places/<property_id>/amenities', methods=['GET'],
+@app_views.route('propertys/<property_id>/amenities', methods=['GET'],
                  strict_slashes=False)
 @swag_from('documentation/place_amenity/get_places_amenities.yml',
            methods=['GET'])
@@ -31,7 +31,7 @@ def get_place_amenities(property_id):
     return jsonify(amenities)
 
 
-@app_views.route('/places/<property_id>/amenities/<amenity_id>',
+@app_views.route('/propertys/<property_id>/amenities/<amenity_id>',
                  methods=['DELETE'], strict_slashes=False)
 @swag_from('documentation/place_amenity/delete_place_amenities.yml',
            methods=['DELETE'])
@@ -62,7 +62,7 @@ def delete_place_amenity(property_id, amenity_id):
     return make_response(jsonify({}), 200)
 
 
-@app_views.route('/places/<property_id>/amenities/<amenity_id>', methods=['POST'],
+@app_views.route('/propertys/<property_id>/amenities/<amenity_id>', methods=['POST'],
                  strict_slashes=False)
 @swag_from('documentation/place_amenity/post_place_amenities.yml',
            methods=['POST'])

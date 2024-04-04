@@ -25,7 +25,7 @@ class Property(BaseModel, Base):
     price = Column(Integer, nullable=False, default=0)
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
-    image= Column(LargeBinary, nullable=True)
+    image_path = Column(String(255), nullable=False) 
 
     reviews = relationship("Review", backref="property", cascade="all, delete, delete-orphan")
     amenities = relationship("Amenity", secondary=properties_amenity_table, viewonly=False)
