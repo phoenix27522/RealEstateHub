@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" objects that handle all default RestFul API actions for propertys """
+""" objects that handle all default RestFul API actions for properties """
 import logging
 from models.state import State
 from models.city import City
@@ -9,11 +9,12 @@ from models.amenity import Amenity
 from models import storage
 from API.v1.views import app_views
 from flask import abort, jsonify, make_response, request
+from sqlalchemy.orm import joinedload
 from flasgger.utils import swag_from
 
 logging.basicConfig(level=logging.DEBUG)
 
-@app_views.route('/cities/<city_id>/propertys', methods=['GET'],
+@app_views.route('/cities/<city_id>/properties', methods=['GET'],
                  strict_slashes=False)
 @swag_from('documentation/property/get_propertys.yml', methods=['GET'])
 def get_propertys(city_id):
@@ -25,12 +26,12 @@ def get_propertys(city_id):
     if not city:
         abort(404)
 
-    propertys = [property.to_dict() for property in city.propertys]
+    properties = [property.to_dict() for property in city.properties]
 
-    return jsonify(propertys)
+    return jsonify(properties)
 
 
-@app_views.route('/propertys/<property_id>', methods=['GET'], strict_slashes=False)
+@app_views.route('/properties/<property_id>', methods=['GET'], strict_slashes=False)
 @swag_from('documentation/property/get_property.yml', methods=['GET'])
 def get_property(property_id):
     """
@@ -40,10 +41,14 @@ def get_property(property_id):
     if not property:
         abort(404)
 
+    # Eager load the amenities associated with the property
+    property = storage.db_session.query(Property).options(joinedload('amenities'), joinedload('city'), joinedload('city.state')).filter_by(id=property_id).one()
+
+
     return jsonify(property.to_dict())
 
 
-@app_views.route('/propertys/<property_id>', methods=['DELETE'],
+@app_views.route('/properties/<property_id>', methods=['DELETE'],
                  strict_slashes=False)
 @swag_from('documentation/property/delete_property.yml', methods=['DELETE'])
 def delete_property(property_id):
@@ -62,7 +67,7 @@ def delete_property(property_id):
     return make_response(jsonify({}), 200)
 
 
-@app_views.route('/cities/<city_id>/propertys', methods=['POST'],
+@app_views.route('/cities/<city_id>/properties', methods=['POST'],
                  strict_slashes=False)
 @swag_from('documentation/property/post_property.yml', methods=['POST'])
 def post_property(city_id):
@@ -95,7 +100,7 @@ def post_property(city_id):
     return make_response(jsonify(instance.to_dict()), 201)
 
 
-@app_views.route('/propertys/<property_id>', methods=['PUT'], strict_slashes=False)
+@app_views.route('/properties/<property_id>', methods=['PUT'], strict_slashes=False)
 @swag_from('documentation/property/put_property.yml', methods=['PUT'])
 def put_property(property_id):
     """
@@ -123,7 +128,7 @@ def put_property(property_id):
 @swag_from('documentation/property/post_search.yml', methods=['POST'])
 def propertys_search():
     """
-    Retrieves all Property objects depending of the JSON in the body
+    Retrieves all Property objects depending on the JSON in the body
     of the request
     """
     logging.debug("Received request to search for properties")
@@ -144,42 +149,45 @@ def propertys_search():
             not states and
             not cities and
             not amenities):
-        propertys = storage.all(Property).values()
-        list_propertys = []
-        for property in propertys:
-            list_propertys.append(property.to_dict())
-        return jsonify(list_propertys)
+        properties = storage.all(Property).values()
+        list_properties = []
+        for property in properties:
+            list_properties.append(property.to_dict())
+        return jsonify(list_properties)
 
-    list_propertys = []
+    list_properties = []
     if states:
         states_obj = [storage.get(State, s_id) for s_id in states]
         for state in states_obj:
             if state:
                 for city in state.cities:
                     if city:
-                        for property in city.propertys:
-                            list_propertys.append(property)
+                        for property in city.properties:
+                            list_properties.append(property)
 
     if cities:
         city_obj = [storage.get(City, c_id) for c_id in cities]
         for city in city_obj:
             if city:
-                for property in city.propertys:
-                    if property not in list_propertys:
-                        list_propertys.append(property)
+                for property in city.properties:
+                    if property not in list_properties:
+                        list_properties.append(property)
 
     if amenities:
-        if not list_propertys:
-            list_propertys = storage.all(Property).values()
+        # Fetch all properties if list_properties is empty
+        if not list_properties:
+            list_properties = storage.all(Property).values()
+        # Filter properties based on amenities
         amenities_obj = [storage.get(Amenity, a_id) for a_id in amenities]
-        list_propertys = [property for property in list_propertys
-                       if all([am in property.amenities
-                               for am in amenities_obj])]
+        list_properties = [property for property in list_properties
+                           if all([am in property.amenities
+                                   for am in amenities_obj])]
 
-    propertys = []
-    for p in list_propertys:
+    properties = []
+    for p in list_properties:
         d = p.to_dict()
         d.pop('amenities', None)
-        propertys.append(d)
+        properties.append(d)
 
-    return jsonify(propertys)
+    return jsonify(properties)
+

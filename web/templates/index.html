@@ -64,6 +64,7 @@
             </div>
         </div>
     </header>
+
     <!--About-->
     <section class="section__container about__container" id="about">
         <div class="about__image">
@@ -99,150 +100,39 @@
 
     <section class="property__container" id="property">
         <div class="property__header">
-            <div>
-                <h2 class="section__header">Buy Property</h2>
-                <p class="section__subheader">
-                    We are dedicated to helping you find your dream property
-                    with ease and confidence.
-                </p>
-            </div>
-            <div class="property__nav">
-                <span><i class="ri-arrow-left-line"></i></span>
-                <span><i class="ri-arrow-right-line"></i></span>
-            </div>
+            <h2 class="section__header">Buy Property</h2>
+            <p class="section__subheader">We are dedicated to helping you find your dream property with ease and
+                confidence.</p>
         </div>
         <!-- Slider main container -->
         <div class="swiper">
             <!-- Additional required wrapper -->
             <div class="swiper-wrapper">
+                {% for property in properties %}
                 <!-- Slides -->
                 <div class="swiper-slide">
                     <div class="property__card">
-                        <img src="../static/images/home1.jpg" alt="property" />
+                        <img src="{{ property.image_path }}" alt="property" />
                         <div class="property__content">
                             <div class="property__details">
-                                <h4>Apartements</h4>
+                                <h4>{{ property.name }}</h4>
                                 <p>
                                     <span><i class="ri-map-pin-line"></i></span>
-                                    kampala, kabowa
+                                    Location: {{ property.city_id }} <!-- Adjust this based on your property model -->
                                 </p>
                                 <button>Book Now</button>
                             </div>
                             <div class="project__ratings">
-                                <div class="stars">
-                                    <span><i class="ri-star-fill"></i></span>
-                                    <span><i class="ri-star-fill"></i></span>
-                                    <span><i class="ri-star-fill"></i></span>
-                                    <span><i class="ri-star-half-line"></i></span>
-                                    <span><i class="ri-star-line"></i></span>
-                                </div>
-                                <div class="price">1400$</div>
+                                <!-- Ratings and price -->
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="swiper-slide">
-                    <div class="property__card">
-                        <img src="../static/images/home1.jpg" alt="property" />
-                        <div class="property__content">
-                            <div class="property__details">
-                                <h4>Apartements</h4>
-                                <p>
-                                    <span><i class="ri-map-pin-line"></i></span>
-                                    kampala, kabowa
-                                </p>
-                                <button>Book Now</button>
-                            </div>
-                            <div class="project__ratings">
-                                <div class="stars">
-                                    <span><i class="ri-star-fill"></i></span>
-                                    <span><i class="ri-star-fill"></i></span>
-                                    <span><i class="ri-star-fill"></i></span>
-                                    <span><i class="ri-star-half-line"></i></span>
-                                    <span><i class="ri-star-line"></i></span>
-                                </div>
-                                <div class="price">1400$</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="property__card">
-                        <img src="../static/images/home1.jpg" alt="property" />
-                        <div class="property__content">
-                            <div class="property__details">
-                                <h4>Apartements</h4>
-                                <p>
-                                    <span><i class="ri-map-pin-line"></i></span>
-                                    kampala, kabowa
-                                </p>
-                                <button>Book Now</button>
-                            </div>
-                            <div class="project__ratings">
-                                <div class="stars">
-                                    <span><i class="ri-star-fill"></i></span>
-                                    <span><i class="ri-star-fill"></i></span>
-                                    <span><i class="ri-star-fill"></i></span>
-                                    <span><i class="ri-star-half-line"></i></span>
-                                    <span><i class="ri-star-line"></i></span>
-                                </div>
-                                <div class="price">1400$</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="property__card">
-                        <img src="../static/images/home1.jpg" alt="property" />
-                        <div class="property__content">
-                            <div class="property__details">
-                                <h4>Apartements</h4>
-                                <p>
-                                    <span><i class="ri-map-pin-line"></i></span>
-                                    kampala, kabowa
-                                </p>
-                                <button>Book Now</button>
-                            </div>
-                            <div class="project__ratings">
-                                <div class="stars">
-                                    <span><i class="ri-star-fill"></i></span>
-                                    <span><i class="ri-star-fill"></i></span>
-                                    <span><i class="ri-star-fill"></i></span>
-                                    <span><i class="ri-star-half-line"></i></span>
-                                    <span><i class="ri-star-line"></i></span>
-                                </div>
-                                <div class="price">1400$</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="property__card">
-                        <img src="../static/images/home1.jpg" alt="property" />
-                        <div class="property__content">
-                            <div class="property__details">
-                                <h4>Apartements</h4>
-                                <p>
-                                    <span><i class="ri-map-pin-line"></i></span>
-                                    kampala, kabowa
-                                </p>
-                                <button>Book Now</button>
-                            </div>
-                            <div class="project__ratings">
-                                <div class="stars">
-                                    <span><i class="ri-star-fill"></i></span>
-                                    <span><i class="ri-star-fill"></i></span>
-                                    <span><i class="ri-star-fill"></i></span>
-                                    <span><i class="ri-star-half-line"></i></span>
-                                    <span><i class="ri-star-line"></i></span>
-                                </div>
-                                <div class="price">1400$</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
+        </div>
     </section>
+
     <section class="section__container contact__container" id="contact">
         <div class="contact__image">
             <img src="../static/images/Gondar Amhara.jpeg" alt="contact" />
@@ -267,6 +157,7 @@
             </form>
         </div>
     </section>
+
     <!--footer-->
     <footer class="footer">
         <div class="section__container footer__container">

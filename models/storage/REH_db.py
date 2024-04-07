@@ -2,6 +2,7 @@ import logging
 from sqlalchemy import create_engine
 from os import getenv
 from sqlalchemy.orm import scoped_session, sessionmaker
+import models
 from models.base import Base
 from models.amenity import Amenity
 from models.city import City
@@ -100,6 +101,21 @@ class RealEstateHub_db:
             return None
 
         return self.__session.query(cls).filter_by(id=id).first()
+
+    def count(self, cls=None):
+        """
+        count the number of objects in storage
+        """
+        all_class = classes.values()
+
+        if not cls:
+            count = 0
+            for clas in all_class:
+                count += len(models.storage.all(clas).values())
+        else:
+            count = len(models.storage.all(cls).values())
+
+        return count
 
 logging.basicConfig(level=logging.INFO)
 db = RealEstateHub_db()
