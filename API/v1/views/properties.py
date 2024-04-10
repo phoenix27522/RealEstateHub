@@ -162,7 +162,7 @@ def propertys_search():
             if state:
                 for city in state.cities:
                     if city:
-                        for property in city.properties:
+                        for property in city.property:
                             list_properties.append(property)
 
     if cities:

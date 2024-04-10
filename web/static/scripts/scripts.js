@@ -3,7 +3,6 @@ const scrollRevealOption = {
   origin: "bottom",
   duration: 1000,
 };
-
 document.addEventListener('DOMContentLoaded', function () {
   const scrollRevealOption = {
     distance: "50px",
@@ -82,17 +81,6 @@ document.addEventListener('DOMContentLoaded', function () {
       });
   });
   // Additional code for ScrollReveal initialization and configuration
-});
-// Optional JavaScript if you want to toggle dropdown on click instead of hover
-document.addEventListener("DOMContentLoaded", function() {
-    const dropdownBtns = document.querySelectorAll('.dropdown-btn');
-    
-    dropdownBtns.forEach(function(dropdownBtn) {
-        dropdownBtn.addEventListener('click', function() {
-            const dropdownContent = this.nextElementSibling;
-            dropdownContent.style.display = (dropdownContent.style.display === 'block') ? 'none' : 'block';
-        });
-    });
 });
 
 // header container
