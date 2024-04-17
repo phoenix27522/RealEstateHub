@@ -17,7 +17,7 @@ def send_email():
     # Create email message
     msg = Message('New Message from RealEstateHub Contact Form',
                   sender='your-email@example.com',
-                  recipients=['recipient@example.com'])
+                  recipients=['kiflunahom1994@gmail.com'])
     msg.body = f"""
     Name: {first_name} {last_name}
     Email: {email}
