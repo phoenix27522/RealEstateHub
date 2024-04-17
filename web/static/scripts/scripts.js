@@ -3,13 +3,8 @@ const scrollRevealOption = {
   origin: "bottom",
   duration: 1000,
 };
-document.addEventListener('DOMContentLoaded', function () {
-  const scrollRevealOption = {
-    distance: "50px",
-    origin: "bottom",
-    duration: 1000,
-  };
 
+document.addEventListener('DOMContentLoaded', function () {
   // Fetch amenities
   fetch('/API/v1/amenities')
     .then(response => response.json())
@@ -64,15 +59,28 @@ document.addEventListener('DOMContentLoaded', function () {
                   <div class="property__content">
                       <h4>${property.name}</h4>
                       <p>
-                          Price: ${property.price}, 
-                          Amenity: ${property.amenity},
-                          State: ${property.state}
+                          Price: ${property.price},<br>
+                          Description: ${property.description},<br>
+                          Number of Rooms: ${property.number_rooms},<br>
+                          Number of Bathrooms: ${property.number_bathrooms}
                       </p>
-                      <button>Book Now</button>
+                      <button class="book-now-btn" data-property-id="${property.id}">Book Now</button>
                   </div>
               </div>
           `;
           swiper.appendSlide(swiperSlide);
+        });
+
+        // Add event listener to the dynamically created "Book Now" buttons
+        document.querySelectorAll('.book-now-btn').forEach(button => {
+          button.addEventListener('click', function () {
+            const propertyId = button.getAttribute('data-property-id');
+            const descriptionTextArea = document.getElementById('description');
+            // Populate description box with property ID
+            descriptionTextArea.value = `Property ID: ${propertyId}\n\n`;
+            // Scroll to the contact section
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+          });
         });
 
       })
@@ -80,7 +88,45 @@ document.addEventListener('DOMContentLoaded', function () {
         console.error('Error performing property search:', error);
       });
   });
-  // Additional code for ScrollReveal initialization and configuration
+
+  document.getElementById('contact-form').addEventListener('submit', function (event) {
+    event.preventDefault(); // Prevent the default form submission behavior
+    
+    // Get form data
+    const firstName = document.getElementById('first_name').value;
+    const lastName = document.getElementById('last_name').value;
+    const email = document.getElementById('email').value;
+    const phoneNumber = document.getElementById('phone_number').value;
+    const description = document.getElementById('description').value;
+
+    // Send email
+    fetch('/API/v1/send-email', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        firstName,
+        lastName,
+        email,
+        phoneNumber,
+        description
+      })
+    })
+    .then(response => {
+      if (response.ok) {
+        console.log('Email sent successfully');
+        alert('Your message has been sent successfully!');
+      } else {
+        console.error('Error sending email:', response.statusText);
+        alert('Sorry, there was an error sending your message. Please try again later.');
+      }
+    })
+    .catch(error => {
+      console.error('Error sending email:', error);
+      alert('Sorry, there was an error sending your message. Please try again later.');
+    });
+  });
 });
 
 // header container
@@ -140,4 +186,4 @@ const swiper = new Swiper(".swiper", {
   slidesPerView: "auto",
   centeredSlides: true,
   spaceBetween: 30,
-})
+});

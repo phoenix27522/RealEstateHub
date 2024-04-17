@@ -5,10 +5,15 @@ from models import storage
 from API.v1.views import app_views
 from flask import Flask, Blueprint, jsonify, make_response
 from flask_cors import CORS
+from flask_mail import Mail  # Import Mail class from flask_mail
+from API.v1.views.config import Config
 
 app = Flask(__name__)
 app.register_blueprint(app_views)
 CORS(app, resources={r"/*": {"origins": "*"}})
+app.config.from_object(Config)
+
+mail = Mail(app)
 
 
 @app.teardown_appcontext

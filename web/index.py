@@ -1,12 +1,17 @@
 from flask import Flask, render_template
 from API.v1.views import app_views
+from API.v1.views.config import Config
 from models import storage
 from models.amenity import Amenity
 from models.properties import Property
 from models.state import State
+from flask_mail import Mail  # Import Mail class from flask_mail
 
 app = Flask(__name__)
 app.register_blueprint(app_views)
+app.config.from_object(Config)
+
+mail = Mail(app)
 
 # Define routes
 @app.route('/')
