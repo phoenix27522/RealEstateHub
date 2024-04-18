@@ -185,3 +185,81 @@ These API routes cover essential functionalities for RealEstateHub, enabling sea
    - Each city can have multiple properties.
    - Each property belongs to a single city.
 
+---
+
+## Project Roadmap
+
+Here are the upcoming plans for the development of RealEstateHub:
+
+- **User Registration:** Enhance the application to allow user registration, enabling users to create accounts and access personalized features.
+  
+- **Improved Filtering Options:** Increase the filter options for property searches, providing users with more refined search criteria to find properties that meet their specific requirements.
+
+- **Enhanced Property Listings:** Make property listings more appealing by incorporating rich media elements such as images and videos, along with standardized sizes and quality to ensure a uniform look across listings.
+
+These planned enhancements will improve the overall user experience and make RealEstateHub a more comprehensive and user-friendly platform for real estate transactions.
+
+## Next Steps
+
+The next steps for the RealEstateHub project include:
+
+1. Implementing user registration functionality.
+2. Enhancing filtering options for property searches.
+3. Improving the visual appeal of property listings and ensuring uniformity in media quality and size.
+
+Stay tuned for updates as we continue to evolve RealEstateHub!
+
+---
+
+## Contributing Guidelines
+
+Welcome to RealEstateHub! We're excited to have you contribute to our project. Below are some guidelines on how you can get involved:
+
+### Reporting Bugs
+
+If you encounter any bugs while using RealEstateHub, please [open an issue](https://github.com/phoenix27522/RealEstateHub/issues) on GitHub and include the following information:
+
+- Steps to reproduce the bug
+- Expected behavior
+- Actual behavior
+- Screenshots (if applicable)
+
+### Suggesting New Features
+
+Have an idea for a new feature or improvement? We'd love to hear it! Please [submit a feature request](https://github.com/phoenix27522/RealEstateHub/issues) on GitHub and include:
+
+- Detailed description of the feature
+- Use cases and potential benefits
+
+### Submitting Pull Requests
+
+To contribute code changes or new features, follow these steps:
+
+1. Fork the repository and create a new branch for your changes.
+2. Make your changes, ensuring adherence to coding standards and practices.
+3. Test your changes locally to ensure they work as expected.
+4. Submit a pull request, clearly documenting the changes and any relevant information.
+
+We appreciate your contributions and look forward to working with you to improve RealEstateHub!
+
+---
+
+## Demo or Screenshots
+
+### Demo
+
+Check out a live demo of RealEstateHub [here](https://example.com).
+
+### Screenshots
+
+![Screenshot 1](https://example.com/screenshot1.png)
+*Caption for screenshot 1*
+
+![Screenshot 2](https://example.com/screenshot2.png)
+*Caption for screenshot 2*
+
+---
+
+## License
+
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT) - see the [LICENSE](LICENSE) file for details.
