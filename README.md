@@ -70,221 +70,74 @@ designing your database, implementing authentication, testing thoroughly, and de
 Follow this roadmap and iterate on your project as you progress to create a successful real estate marketplace. 
 If you have any specific questions or encounter challenges along the way, feel free to ask for assistance!
 RealEstateHub MVP specification
-Architecture
+
+### Architecture
 MVP Overview:
 The RealEstateHub MVP architecture consists of the following components:
-Frontend:
+
+## Frontend:
 Description: The user interface presented to buyers, sellers, and agents.
 Technologies: HTML, CSS, JavaScript.
-Backend:
+## Backend:
 Description: Responsible for handling business logic, interacting with the database, and serving data to the frontend.
 Technologies: Python with Flask framework.
-Database:
+## Database:
 Description: Stores user data, property listings, and transaction information.
 Technologies: MySQL with SQLAlchemy as the ORM.
-API:
+## API:
 Description: Facilitates communication between the frontend and backend, serving as the gateway for data exchange.
 Technologies: Flask API endpoints.
-Data Flow:
-User Interaction:
+
+### Data Flow:
+## User Interaction:
 Description: Users interact with the frontend to perform actions like searching for properties, submitting listings, or initiating transactions.
 
-
-Frontend to Backend Communication
+## Frontend to Backend Communication
 Description: The frontend communicates user requests and data to the backend through API endpoints.
 
-
-Backend Processing:
+## Backend Processing:
 Description: The backend processes user requests, handles business logic, and interacts with the database to retrieve or store data.
 
+## Database Interaction:
+Description: The backend interacts with the MySQL database using SQLAlchemy for operations such as retrieving property listings, user information, and 
+transaction details.
 
-Database Interaction:
-Description: The backend interacts with the MySQL database using SQLAlchemy for operations such as retrieving property listings, user information, and transaction details.
-
-
-Backend to Frontend Communication:
+## Backend to Frontend Communication:
 Description: The backend sends processed data back to the frontend, which is then displayed to users.
-
-
-
-
-
-
-
-
-
 
 Diagram:
 Block diagram is a diagram of a system, in which the principal parts or functions are represented by blocks connected by lines, that show the relationships of the blocks
 
+![pic](https://github.com/phoenix27522/RealEstateHub/assets/109696162/35517a15-5ab4-4b7b-b315-39cc6edfd5ac)
+
 A level 0 / context diagram is a data flow diagram which shows how the system will receive and send data flows to the external entities involve
 
+![pic2](https://github.com/phoenix27522/RealEstateHub/assets/109696162/4aa3f2bf-0e4f-4cc8-b427-74b169c39adf)
 
+## Conclusion:
+The RealEstateHub MVP architecture ensures a seamless flow of data between the frontend, backend, and database, providing users with a smooth experience in searching, listing, and transacting real estate properties. This modular structure allows for flexibility and scalability as the project evolves
 
-The level 1 diagram, which shows the main functional areas of the system
-
-
-
-
-
-Conclusion:
-The RealEstateHub MVP architecture ensures a seamless flow of data between the frontend, backend, and database, providing users with a smooth experience in searching, listing, and transacting real estate properties. This modular structure allows for flexibility and scalability as the project evolves.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-APIs and Methods
+### APIs and Methods
 RealEstateHub will implement various API routes to facilitate communication between the web client and the web server. The API routes will cover essential functionalities related to property listings, user interactions, and transaction processes.
-1. Property Listings:
+## 1. Property Listings:
 GET /api/properties
-Description: Retrieve a list of available properties.
-Parameters: None.
-Response: JSON array containing property details.
+  ●	Description: Retrieve a list of available properties.
+  ●	Parameters: None.
+  ●	Response: JSON array containing property details.
 GET /api/properties/{property_id}
-Description: Retrieve detailed information about a specific property.
-Parameters: property_id - Unique identifier for the property.
-Response: JSON object with detailed property information.
+  ●	Description: Retrieve detailed information about a specific        property.
+  ●	Parameters: property_id - Unique identifier for the property.
+  ●	Response: JSON object with detailed property information.
 POST /api/properties
-Description: Submit a new property listing.
-Parameters: JSON object containing property details.
-Response: JSON object confirming the successful addition of the new property.
-2. User Interactions:
-POST /api/users/register
-Description: Register a new user.
-Parameters: JSON object with user registration details.
-Response: JSON object with user information and authentication token.
-POST /api/users/login
-Description: Authenticate and log in a user.
-Parameters: JSON object with user login credentials.
-Response: JSON object with user information and authentication token.
-3. Transaction Processes:
-POST /api/transactions/initiate
-Description: Initiate a real estate transaction.
-Parameters: JSON object with transaction details.
-Response: JSON object confirming the initiation and providing transaction details.
-PUT /api/transactions/{transaction_id}/complete
-Description: Mark a transaction as completed.
-Parameters: transaction_id - Unique identifier for the transaction.
-Response: JSON object confirming the completion of the transaction.
-
-
-
-
-4. Search and Filters:
+  ●	Description: Submit a new property listing.
+  ●	Parameters: JSON object containing property details.
+  ●	Response: JSON object confirming the successful addition of        the new property.
+## 2. Search and Filters:
 GET /api/search
-Description: Search for properties based on specified criteria.
-Parameters: Query parameters for search criteria (e.g., location, price range).
-Response: JSON array containing matching property listings.
+  ●	Description: Search for properties based on specified criteria.
+  ●	Parameters: Query parameters for search criteria (e.g.,            location, price range).
+  ●	Response: JSON array containing matching property listings.
 
-
-
-
-
-
-
-
-
-
-Conclusion:
+## Conclusion:
 These API routes cover essential functionalities for RealEstateHub, enabling seamless communication between the web client and the web server. They support user registration, property listing, transaction initiation, and search functionalities, ensuring a comprehensive and user-friendly experience
-Data Model
-The RealEstateHub data model is designed to capture essential entities and relationships within the system.
-Entities:
-User:
-Attributes:
-user_id (Primary Key)
-username
-email
-password (hashed)
-registration_date
-Property:
-Attributes:
-property_id (Primary Key)
-title
-description
-price
-location
-bedrooms
-bathrooms
-area_sqft
-seller_id (Foreign Key referencing User)
-Transaction:
-Attributes:
-transaction_id (Primary Key)
-buyer_id (Foreign Key referencing User)
-property_id (Foreign Key referencing Property)
-transaction_date
-status (e.g., initiated, completed)
-Relationships:
-User - Property Relationship:
-Each user can be associated with multiple properties as a seller.
-Each property is associated with a single seller (User).
-User - Transaction Relationship:
-Each user can initiate and be part of multiple transactions as a buyer.
-Each transaction involves a single buyer (User).
-Property - Transaction Relationship:
-Each property can be part of multiple transactions.
-Each transaction involves a single property.
 
-
-
-
-Diagram:
-
-
-
-
-
-Conclusion:
-The RealEstateHub data model provides a structured representation of users, properties, and transactions, capturing the key information required for effective real estate transactions on the platform. This model ensures data integrity and facilitates seamless interactions between different components of the system.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-User Stories for RealEstateHub MVP:
-As a Potential Buyer, I want to view detailed property listings with high-quality images, so I can make informed decisions about which properties to explore further.
-.
-As a Property Seller, I want to easily list my property on the platform, providing essential details such as location, specifications, and selling price, so I can attract potential buyers.
-As a Registered User, I want to save my favorite properties and receive notifications about price drops or new listings matching my preferences, so I can stay updated on properties of interest.
-As a Buyer, I want to initiate a transaction for a selected property directly through the platform, so I can seamlessly move from property selection to the purchasing process.
-As an Agent, I want to access a dashboard that provides insights into property trends, user interactions, and transaction statuses, so I can efficiently assist clients and make informed business decisions.
-Conclusion:
-These user stories capture the diverse needs of RealEstateHub's users, from buyers and sellers to registered users and agents. Each story provides a specific perspective, guiding the development of features that align with user expectations and bring value to the platform.
-
-
-
-Mockups:	
