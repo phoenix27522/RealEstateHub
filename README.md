@@ -248,16 +248,12 @@ We appreciate your contributions and look forward to working with you to improve
 
 ### Demo
 
-Check out a live demo of RealEstateHub [here](https://example.com).
+Check out a live demo of RealEstateHub [here](https://youtu.be/tqfl270qdLU?si=KK0kq8lH-A2BqSTp).
 
 ### Screenshots
 
-![Screenshot 1](https://example.com/screenshot1.png)
+![vlcsnap-error548](https://github.com/phoenix27522/RealEstateHub/assets/109696162/4d1775b9-4cfb-49bb-9e3f-6a6740f550f8)
 *Caption for screenshot 1*
-
-![Screenshot 2](https://example.com/screenshot2.png)
-*Caption for screenshot 2*
-
 ---
 
 ## License
