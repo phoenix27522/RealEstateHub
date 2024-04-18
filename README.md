@@ -140,4 +140,25 @@ GET /api/search
 
 ### Conclusion:
 These API routes cover essential functionalities for RealEstateHub, enabling seamless communication between the web client and the web server. They support user registration, property listing, transaction initiation, and search functionalities, ensuring a comprehensive and user-friendly experience
-
+Relationships:
+  1.	User - Property Relationship:
+    ●	Each user can be associated with multiple properties as a          seller.
+    ●	Each property is associated with a single seller (User).
+  2.  User - Review Relationship:
+    ●	Each user can write multiple reviews.
+    ●	Each review is written by a single user.
+  3.  User - Property Relationship:
+    ●	Each user can be associated with multiple properties as a          seller.
+    ●	Each property is associated with a single seller (User).
+  4.  Amenity - Property Relationship:
+    ●	Each property can have multiple amenities.
+    ●	Each amenity can be associated with multiple properties.
+  5.  State - City Relationship:
+    ●	Each state can have multiple cities.
+    ●	Each city belongs to a single state.
+  6.  Review - User Relationship:
+    ●	Each review is written by a single user.
+    ●	Each user can write multiple reviews.
+  7.  City - Property Relationship:
+    ●	Each city can have multiple properties.
+    ●	Each property belongs to a single city.
